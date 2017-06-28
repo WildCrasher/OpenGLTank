@@ -1,0 +1,40 @@
+#version 330
+
+out vec4 pixelColor; //Zmienna wyjsciowa fragment shadera. Zapisuje sie do niej ostateczny (prawie) kolor piksela
+
+//Zmienne interpolowane
+in vec4 iC; //Kolor wyliczony w vertex shaderze
+in vec4 n; //Wektor normalny w przestrzeni oka
+in vec4 l; //Wektor do światła w przestrzeni oka
+in vec4 v; //Wektor do obserwatora w przestrzeni oka
+in vec2 iTexCoords; //Interpolowane współrzędne teksturowania
+
+//Zmienne reprezentujace jednostki teksturujace
+uniform sampler2D textureMap0;
+uniform sampler2D textureMap1;
+
+void main(void) {
+	//Ponizej zakodowane na twardo wlasnosci materialu i kolory swiatla (zeby nie komplikowac kodu)
+	vec4 ka=vec4(0,0,0,1); //Kolor materialu dla swiatla otoczenia
+	vec4 kd=texture(textureMap0,iTexCoords);         //Kolor materialu dla swiatla rozproszonego
+	vec4 ks=texture(textureMap1,iTexCoords);         //Kolor materialu dla swiatla odbitego
+	vec4 la=vec4(0,0,0,1); //Kolor swiatla otoczenia
+	vec4 ld=vec4(1,1,1,1); //Kolor swiatla rozpraszanego
+	vec4 ls=vec4(1,1,1,1); //Kolor swiatla odbijanego
+	float shininess=50; //Wykladnik Phonga
+	
+	//Normalizacja po interpolacji
+	vec4 _n=normalize(n);
+	vec4 _l=normalize(l);
+	vec4 _v=normalize(v);
+	//Obliczenie wektora odbitego
+	vec4 _r=reflect(-_l,_n);
+	
+	//Obliczenie iloczynu skalarnego  wektorow l i n
+	float nl=max(dot(_n,_l),0);
+	//Obliczenie iloczynu skalarnego wektorow r i v podniesionego do wykladnika Phonga
+	float rv=pow(max(dot(_r,_v),0),shininess);
+
+	//Obliczenie modelu oswietlenia
+	pixelColor=ka*la*vec4(1,1,1,0)+kd*ld*vec4(nl,nl,nl,1)+ks*ls*vec4(rv,rv,rv,0);
+}
