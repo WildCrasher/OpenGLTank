@@ -16,7 +16,7 @@ namespace Models {
 
 	extern unsigned int czolgVertices;
     extern float czolgPositions[88716];
-    extern float czolgTexels[61644];
+    extern float czolgTexels[44358];
     extern float czolgNormals[88716];
 	}
 
