@@ -121,6 +121,19 @@ void error_callback(int error, const char* description) {
 	fputs(description, stderr);
 }
 
+double old_x_pos = 8;
+//double old_y_pos = 3;
+double move_camera = 0;
+
+void cursorPositionCallback(GLFWwindow* window, double xPos, double yPos)
+{
+    std::cout<<xPos<<" "<<yPos<<std::endl;
+  //  if( xPos > 150) xPos = 150;
+  //  if( xPos < -150 ) xPos = -150;
+    move_camera = xPos/15;
+    old_x_pos = xPos;
+  //  old_y_pos = yPos;
+}
 //Procedura obs³ugi klawiatury
 void key_callback(GLFWwindow* window, int key,
 	int scancode, int action, int mods) {
@@ -170,6 +183,8 @@ void initOpenGLProgram(GLFWwindow* window) {
 	glClearColor(0, 0, 0, 1);
 	glEnable(GL_DEPTH_TEST);
 	glfwSetKeyCallback(window, key_callback);
+   // glfwSetCursorPosCallback(window, cursorPositionCallback);
+   // glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 	shaderProgram=new ShaderProgram("vshader.txt",NULL,"fshader.txt");
 
@@ -324,7 +339,7 @@ void srednia_x_y_z( const float* vertices, const int vertexCount, float srednie[
 }
 
 //Procedura rysuj¹ca zawartoœæ sceny
-void drawScene(GLFWwindow* window, float move_x,float move_z, float move_side, float move_round_turret) {
+void drawScene(GLFWwindow* window, float move_x,float move_z, float move_side, float move_round_turret, double move_camera) {
 	//************Tutaj umieszczaj kod rysuj¹cy obraz******************l
 
     float srednie_hull[3];
@@ -335,7 +350,7 @@ void drawScene(GLFWwindow* window, float move_x,float move_z, float move_side, f
 	glm::mat4 P = glm::perspective(50 * PI / 180, 1.0f, 1.0f, 50.0f); //Wylicz macierz rzutowania
 
 	glm::mat4 V = glm::lookAt( //Wylicz macierz widoku
-		glm::vec3(0.0f, 30.0f, -30.5f),
+		glm::vec3((float)move_camera, 30.0f, -30.5f),
 		glm::vec3(0.0f, 0.0f, 0.0f),
 		glm::vec3(0.0f, 1.0f, 0.0f));
 
@@ -363,7 +378,7 @@ void drawScene(GLFWwindow* window, float move_x,float move_z, float move_side, f
 	M_Turret = glm::rotate(M_Turret, move_round_turret, glm::vec3(0, 1, 0));
     M_Turret = glm::translate(M_Turret, glm::vec3( -srednie_turret[0], -srednie_turret[1], -srednie_turret[2]));
 
-    std::cout<<srednie_turret[0]<<" "<<srednie_turret[1]<<" "<<srednie_turret[2]<<std::endl;
+    //std::cout<<srednie_turret[0]<<" "<<srednie_turret[1]<<" "<<srednie_turret[2]<<std::endl;
     //GUN
 	glm::mat4 M_Gun = glm::mat4(1.0f);
 	M_Gun = glm::translate(M_Gun, glm::vec3(move_z, 0, move_x));
@@ -430,7 +445,7 @@ int main(void)
 		move_side += speed_side*glfwGetTime();
 		move_round_turret += speed_round_turret*glfwGetTime();
 		glfwSetTime(0);
-		drawScene(window, move_x, move_z, move_side, move_round_turret);
+		drawScene(window, move_x, move_z, move_side, move_round_turret, move_camera);
 		glfwPollEvents();
 	}
 
