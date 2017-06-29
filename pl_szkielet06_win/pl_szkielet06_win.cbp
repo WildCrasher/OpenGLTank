@@ -60,6 +60,8 @@
 		<Unit filename="model.h" />
 		<Unit filename="shaderprogram.cpp" />
 		<Unit filename="shaderprogram.h" />
+		<Unit filename="tank_turret.cpp" />
+		<Unit filename="tank_turret.h" />
 		<Unit filename="teapot.cpp" />
 		<Unit filename="teapot.h" />
 		<Unit filename="torus.h" />

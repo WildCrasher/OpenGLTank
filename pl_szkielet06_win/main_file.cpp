@@ -40,19 +40,34 @@ float speed_y = 0; // [radiany/s]
 ShaderProgram *shaderProgram; //Wskaźnik na obiekt reprezentujący program cieniujący.
 
 //Uchwyty na VAO i bufory wierzchołków
-GLuint vao;
-GLuint bufVertices; //Uchwyt na bufor VBO przechowujący tablicę współrzędnych wierzchołków
-//GLuint bufColors;  //Uchwyt na bufor VBO przechowujący tablicę kolorów
-GLuint bufNormals; //Uchwyt na bufor VBO przechowujący tablicę wektorów normalnych
-GLuint bufTexCoords; //Uchwyt na bufor VBO przechowujący tablicę współrzędnych teksturowania
+GLuint vao_hull;
+GLuint bufHullVertices;
+//GLuint bufColors;
+GLuint bufHullNormals;
+GLuint bufHullTexCoords;
 
-//Kostka
-float* vertices=Models::TankHullInternal::hullPositions;
+GLuint vao_turret;
+GLuint bufTurretVertices;
+//GLuint bufColors;
+GLuint bufTurretNormals;
+GLuint bufTurretTexCoords;
+
+//HULL
+float* hullvertices=Models::TankHullInternal::hullPositions;
 //float* colors=Models::CubeInternal::colors;
-float* normals=Models::TankHullInternal::hullNormals;
-float* texCoords=Models::TankHullInternal::hullTexels;
+float* hullnormals=Models::TankHullInternal::hullNormals;
+float* hulltexCoords=Models::TankHullInternal::hullTexels;
 //float* normals=Models::CubeInternal::vertexNormals;
-int vertexCount=Models::TankHullInternal::hullVertices;
+int hullvertexCount=Models::TankHullInternal::hullVertices;
+
+
+//TURRET
+float* turretvertices=Models::TankTurretInternal::turretPositions;
+//float* colors=Models::CubeInternal::colors;
+float* turretnormals=Models::TankTurretInternal::turretNormals;
+float* turrettexCoords=Models::TankTurretInternal::turretTexels;
+//float* normals=Models::CubeInternal::vertexNormals;
+int turretvertexCount=Models::TankTurretInternal::turretVertices;
 
 
 //Uchwyty na tekstury
@@ -133,28 +148,41 @@ void assignVBOtoAttribute(ShaderProgram *shaderProgram,const char* attributeName
 //Procedura inicjująca
 void initOpenGLProgram(GLFWwindow* window) {
 	//************Tutaj umieszczaj kod, który należy wykonać raz, na początku programu************
-	glClearColor(0, 0, 0, 1); //Czyść ekran na czarno
-	glEnable(GL_DEPTH_TEST); //Włącz używanie Z-Bufora
-	glfwSetKeyCallback(window, key_callback); //Zarejestruj procedurę obsługi klawiatury
+	glClearColor(0, 0, 0, 1);
+	glEnable(GL_DEPTH_TEST);
+	glfwSetKeyCallback(window, key_callback);
 
-	shaderProgram=new ShaderProgram("vshader.txt",NULL,"fshader.txt"); //Wczytaj program cieniujący
+	shaderProgram=new ShaderProgram("vshader.txt",NULL,"fshader.txt");
 
-	//*****Przygotowanie do rysowania pojedynczego obiektu*******
-	//Zbuduj VBO z danymi obiektu do narysowania
-	bufVertices=makeBuffer(vertices, vertexCount, sizeof(float)*4); //VBO ze współrzędnymi wierzchołków
-	//bufColors=makeBuffer(colors, vertexCount, sizeof(float)*4);//VBO z kolorami wierzchołków
-	bufNormals=makeBuffer(normals, vertexCount, sizeof(float)*4);//VBO z wektorami normalnymi wierzchołków
-	bufTexCoords=makeBuffer(texCoords, vertexCount, sizeof(float)*2);//VBO ze wspolrzednymi teksturowania
+	//tworzenie bufora HULL
+	bufHullVertices=makeBuffer(hullvertices, hullvertexCount, sizeof(float)*4);
+	//bufColors=makeBuffer(colors, vertexCount, sizeof(float)*4);
+	bufHullNormals=makeBuffer(hullnormals, hullvertexCount, sizeof(float)*4);
+	bufHullTexCoords=makeBuffer(hulltexCoords, hullvertexCount, sizeof(float)*2);
 
-	//Zbuduj VAO wiążący atrybuty z konkretnymi VBO
-	glGenVertexArrays(1,&vao); //Wygeneruj uchwyt na VAO i zapisz go do zmiennej globalnej
+    glGenVertexArrays(1,&vao_hull);
 
-	glBindVertexArray(vao); //Uaktywnij nowo utworzony VAO
+    glBindVertexArray(vao_hull);
 
-	assignVBOtoAttribute(shaderProgram,"vertex",bufVertices,4); //"vertex" odnosi się do deklaracji "in vec4 vertex;" w vertex shaderze
-	//assignVBOtoAttribute(shaderProgram,"color",bufColors,4); //"color" odnosi się do deklaracji "in vec4 color;" w vertex shaderze
-	assignVBOtoAttribute(shaderProgram,"normal",bufNormals,4); //"normal" odnosi się do deklaracji "in vec4 normal;" w vertex shaderze
-	assignVBOtoAttribute(shaderProgram,"texCoords",bufTexCoords,2); //"texCoords" odnosi się do deklaracji "in vec2 texCoords;" w vertex shaderze
+    assignVBOtoAttribute(shaderProgram,"vertex",bufHullVertices,4);
+	//assignVBOtoAttribute(shaderProgram,"color",bufColors,4);
+	assignVBOtoAttribute(shaderProgram,"normal",bufHullNormals,4);
+	assignVBOtoAttribute(shaderProgram,"texCoords",bufHullTexCoords,2);
+
+	//tworzenie bufora TURRET
+	bufTurretVertices=makeBuffer(turretvertices, turretvertexCount, sizeof(float)*4);
+	//bufColors=makeBuffer(colors, vertexCount, sizeof(float)*4);
+	bufTurretNormals=makeBuffer(turretnormals, turretvertexCount, sizeof(float)*4);
+	bufTurretTexCoords=makeBuffer(turrettexCoords, turretvertexCount, sizeof(float)*2);
+
+    glGenVertexArrays(1,&vao_turret);
+
+	glBindVertexArray(vao_turret);
+
+	assignVBOtoAttribute(shaderProgram,"vertex",bufTurretVertices,4);
+	//assignVBOtoAttribute(shaderProgram,"color",bufColors,4);
+	assignVBOtoAttribute(shaderProgram,"normal",bufTurretNormals,4);
+	assignVBOtoAttribute(shaderProgram,"texCoords",bufTurretTexCoords,2);
 
 	glBindVertexArray(0); //Dezaktywuj VAO
 	//******Koniec przygotowania obiektu************
@@ -164,23 +192,28 @@ void initOpenGLProgram(GLFWwindow* window) {
 	tex1=readTexture("metal_spec.png");
 }
 
-//Zwolnienie zasobów zajętych przez program
 void freeOpenGLProgram() {
-	delete shaderProgram; //Usunięcie programu cieniującego
+	delete shaderProgram;
 
-	glDeleteVertexArrays(1,&vao); //Usunięcie vao
-	glDeleteBuffers(1,&bufVertices); //Usunięcie VBO z wierzchołkami
-	//glDeleteBuffers(1,&bufColors); //Usunięcie VBO z kolorami
-	glDeleteBuffers(1,&bufNormals); //Usunięcie VBO z wektorami normalnymi
-	glDeleteBuffers(1,&bufTexCoords); //Usunięcie VBO ze współrzędnymi teksturowania
+	glDeleteVertexArrays(1,&vao_hull);
+	glDeleteBuffers(1,&bufHullVertices);
+	//glDeleteBuffers(1,&bufColors);
+	glDeleteBuffers(1,&bufHullNormals);
+	glDeleteBuffers(1,&bufHullTexCoords);
 
-	//Usuń tekstury
+
+	glDeleteVertexArrays(1,&vao_turret);
+	glDeleteBuffers(1,&bufTurretVertices);
+	//glDeleteBuffers(1,&bufColors);
+	glDeleteBuffers(1,&bufTurretNormals);
+	glDeleteBuffers(1,&bufTurretTexCoords);
+
 	glDeleteTextures(1,&tex0);
 	glDeleteTextures(1,&tex1);
 
 }
 
-void drawObject(GLuint vao, ShaderProgram *shaderProgram, mat4 mP, mat4 mV, mat4 mM) {
+void drawObject(GLuint vao, ShaderProgram *shaderProgram, mat4 mP, mat4 mV, mat4 mM, int vertexCount) {
 	//Włączenie programu cieniującego, który ma zostać użyty do rysowania
 	//W tym programie wystarczyłoby wywołać to raz, w setupShaders, ale chodzi o pokazanie,
 	//że mozna zmieniać program cieniujący podczas rysowania jednej sceny
@@ -241,7 +274,8 @@ void drawScene(GLFWwindow* window, float angle_x, float angle_y) {
 	M = glm::rotate(M, angle_y, glm::vec3(0, 1, 0));
 
 	//Narysuj obiekt
-	drawObject(vao,shaderProgram,P,V,M);
+	drawObject(vao_hull,shaderProgram,P,V,M, hullvertexCount);
+	drawObject(vao_turret,shaderProgram,P,V,M, turretvertexCount);
 
 	//Przerzuć tylny bufor na przedni
 	glfwSwapBuffers(window);

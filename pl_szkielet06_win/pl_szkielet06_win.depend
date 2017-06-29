@@ -1200,3 +1200,12 @@
 1498736145 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\czolg_hull.h
 	"model.h"
 
+1498736447 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\czolg_hull.cpp
+	"czolg_hull.h"
+
+1498736829 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\tank_turret.cpp
+	"tank_turret.h"
+
+1498736829 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\tank_turret.h
+	"model.h"
+
