@@ -1,24 +1,24 @@
-// This is a .c file for the model: czolg
+// This is a .c file for the model: hull
 
-#include "czolg.h"
+#include "czolg_hull.h"
 
 namespace Models {
 	
-	Tank tank;
+	TankHull tankhull;
 	
-	Tank::Tank() {
-		vertices=TankInternal::czolgPositions;
-		normals=TankInternal::czolgNormals;
-//		vertexNormals=TankInternal::vertexNormals;
-		texCoords=TankInternal::czolgTexels;
-	//	colors=TankInternal::colors;
-		vertexCount=TankInternal::czolgVertices;
+	TankHull::TankHull() {
+		vertices=TankHullInternal::hullPositions;
+		normals=TankHullInternal::hullNormals;
+//		vertexNormals=TankHullInternal::vertexNormals;
+		texCoords=TankHullInternal::hullTexels;
+	//	colors=TankHullInternal::colors;
+		vertexCount=TankHullInternal::hullVertices;
 	}
 	
-	Tank::~Tank() {
+	TankHull::~TankHull() {
 	}
 	
-	void Tank::drawSolid() {
+	void TankHull::drawSolid() {
 		glEnable(GL_NORMALIZE);
 		
 		glEnableClientState(GL_VERTEX_ARRAY);
@@ -39,11 +39,11 @@ namespace Models {
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	}
 	
-	namespace TankInternal {
+	namespace TankHullInternal {
 
-unsigned int czolgVertices = 22179;
+unsigned int hullVertices = 22179;
 
-float czolgPositions[88716] = 
+float hullPositions[88716] = 
 {
 -2.429, 2.48585, 7.1525, 1, 
 -2.6353, 2.41794, 7.35297, 1, 
@@ -22226,7 +22226,7 @@ float czolgPositions[88716] =
 1.28793, 4.92178, 1.29897, 1 
 };
 
-float czolgTexels[44358] = 
+float hullTexels[44358] = 
 {
 0.6334, 0.9912, 
 0.6426, 0.9693, 
@@ -44408,7 +44408,7 @@ float czolgTexels[44358] =
 0.5676, 0.9659, 
 0.5654, 0.9873 
 };
-float czolgNormals[88716] = 
+float hullNormals[88716] = 
 {
 -0.6908, -0.0335, -0.7223, 0, 
 -0.6908, -0.0335, -0.7223, 0, 

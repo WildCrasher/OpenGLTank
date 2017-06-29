@@ -22,7 +22,7 @@ Place, Fifth Floor, Boston, MA  02110 - 1301  USA
 
 #include "cube.h"
 #include "teapot.h"
-#include "czolg.h"
+#include "czolg_hull.h"
 
 
 #endif

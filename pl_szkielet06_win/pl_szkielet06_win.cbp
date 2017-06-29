@@ -50,8 +50,8 @@
 		<Unit filename="constants.h" />
 		<Unit filename="cube.cpp" />
 		<Unit filename="cube.h" />
-		<Unit filename="czolg.cpp" />
-		<Unit filename="czolg.h" />
+		<Unit filename="czolg_hull.cpp" />
+		<Unit filename="czolg_hull.h" />
 		<Unit filename="fshader.txt" />
 		<Unit filename="lodepng.cpp" />
 		<Unit filename="lodepng.h" />

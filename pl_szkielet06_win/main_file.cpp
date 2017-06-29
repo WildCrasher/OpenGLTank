@@ -47,12 +47,12 @@ GLuint bufNormals; //Uchwyt na bufor VBO przechowujący tablicę wektorów norma
 GLuint bufTexCoords; //Uchwyt na bufor VBO przechowujący tablicę współrzędnych teksturowania
 
 //Kostka
-float* vertices=Models::TankInternal::czolgPositions;
+float* vertices=Models::TankHullInternal::hullPositions;
 //float* colors=Models::CubeInternal::colors;
-float* normals=Models::TankInternal::czolgNormals;
-float* texCoords=Models::TankInternal::czolgTexels;
+float* normals=Models::TankHullInternal::hullNormals;
+float* texCoords=Models::TankHullInternal::hullTexels;
 //float* normals=Models::CubeInternal::vertexNormals;
-int vertexCount=Models::TankInternal::czolgVertices;
+int vertexCount=Models::TankHullInternal::hullVertices;
 
 
 //Uchwyty na tekstury
@@ -230,7 +230,7 @@ void drawScene(GLFWwindow* window, float angle_x, float angle_y) {
 	glm::mat4 P = glm::perspective(50 * PI / 180, 1.0f, 1.0f, 50.0f); //Wylicz macierz rzutowania
 
 	glm::mat4 V = glm::lookAt( //Wylicz macierz widoku
-		glm::vec3(0.0f, 0.0f, -3.5f),
+		glm::vec3(0.0f, 0.0f, -30.5f),
 		glm::vec3(0.0f, 0.0f, 0.0f),
 		glm::vec3(0.0f, 1.0f, 0.0f));
 
