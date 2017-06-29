@@ -24,6 +24,6 @@ Place, Fifth Floor, Boston, MA  02110 - 1301  USA
 #include "teapot.h"
 #include "czolg_hull.h"
 #include "tank_turret.h"
-
+#include "tank_gun.h"
 
 #endif

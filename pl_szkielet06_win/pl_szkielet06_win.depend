@@ -1091,7 +1091,7 @@
 	<iostream>
 	"lodepng.h"
 
-1498736493 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\main_file.cpp
+1498739326 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\main_file.cpp
 	<GL/glew.h>
 	<GLFW/glfw3.h>
 	<glm/glm.hpp>
@@ -1170,10 +1170,12 @@
 	"../trigonometric.hpp"
 	"../matrix.hpp"
 
-1498736018 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\allmodels.h
+1498738193 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\allmodels.h
 	"cube.h"
 	"teapot.h"
 	"czolg_hull.h"
+	"tank_turret.h"
+	"tank_gun.h"
 
 1495017347 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\teapot.h
 	"model.h"
@@ -1207,5 +1209,11 @@
 	"tank_turret.h"
 
 1498736829 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\tank_turret.h
+	"model.h"
+
+1498738143 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\tank_gun.cpp
+	"tank_gun.h"
+
+1498738143 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\tank_gun.h
 	"model.h"
 
