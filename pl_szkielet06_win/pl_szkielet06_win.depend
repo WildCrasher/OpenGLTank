@@ -517,7 +517,7 @@
 1495017347 c:\users\admin\downloads\pl_szkielet06_win\pl_szkielet06_win\teapot.h
 	"model.h"
 
-1498675467 source:c:\users\admin\downloads\pl_szkielet06_win\pl_szkielet06_win\main_file.cpp
+1498679073 source:c:\users\admin\downloads\pl_szkielet06_win\pl_szkielet06_win\main_file.cpp
 	<GL/glew.h>
 	<GLFW/glfw3.h>
 	<glm/glm.hpp>
@@ -592,9 +592,9 @@
 	"teapot.h"
 	"czolg.h"
 
-1498674195 c:\users\admin\downloads\pl_szkielet06_win\pl_szkielet06_win\czolg.h
+1498734367 c:\users\admin\downloads\pl_szkielet06_win\pl_szkielet06_win\czolg.h
 	"model.h"
 
-1498674452 source:c:\users\admin\downloads\pl_szkielet06_win\pl_szkielet06_win\czolg.cpp
+1498734367 source:c:\users\admin\downloads\pl_szkielet06_win\pl_szkielet06_win\czolg.cpp
 	"czolg.h"
 
