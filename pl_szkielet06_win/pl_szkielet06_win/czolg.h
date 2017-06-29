@@ -15,9 +15,9 @@ namespace Models {
 	namespace TankInternal {
 
 	extern unsigned int czolgVertices;
-    extern float czolgPositions[92466];
+    extern float czolgPositions[88716];
     extern float czolgTexels[61644];
-    extern float czolgNormals[92466];
+    extern float czolgNormals[88716];
 	}
 
 	class Tank: public Model {
