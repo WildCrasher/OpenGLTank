@@ -26,6 +26,7 @@ Place, Fifth Floor, Boston, MA  02110 - 1301  USA
 #include <glm/gtc/matrix_transform.hpp>
 #include <stdlib.h>
 #include <stdio.h>
+#include <iostream>
 #include "constants.h"
 #include "allmodels.h"
 #include "lodepng.h"
@@ -33,8 +34,9 @@ Place, Fifth Floor, Boston, MA  02110 - 1301  USA
 
 using namespace glm;
 
-float speed_forward = 0; // [radiany/s]
-float speed_side = 0; // [radiany/s]
+float speed_forward = 0;
+float speed_side = 0;
+float speed_round_turret = 0;
 
 //Uchwyty na shadery
 ShaderProgram *shaderProgram;
@@ -123,10 +125,12 @@ void error_callback(int error, const char* description) {
 void key_callback(GLFWwindow* window, int key,
 	int scancode, int action, int mods) {
 	if (action == GLFW_PRESS) {
-		if (key == GLFW_KEY_LEFT) speed_side = -0.5;
-		if (key == GLFW_KEY_RIGHT) speed_side = 0.5;
-		if (key == GLFW_KEY_UP) speed_forward = -1;
-		if (key == GLFW_KEY_DOWN) speed_forward = 1;
+		if (key == GLFW_KEY_LEFT) speed_side = 1;
+		if (key == GLFW_KEY_RIGHT) speed_side = -1;
+		if (key == GLFW_KEY_UP) speed_forward = -0.3;
+		if (key == GLFW_KEY_DOWN) speed_forward = 0.3;
+		if (key == GLFW_KEY_A) speed_round_turret = -1.5;
+		if (key == GLFW_KEY_D) speed_round_turret = 1.5;
 	}
 
 
@@ -135,6 +139,8 @@ void key_callback(GLFWwindow* window, int key,
 		if (key == GLFW_KEY_RIGHT) speed_side = 0;
 		if (key == GLFW_KEY_UP) speed_forward = 0;
 		if (key == GLFW_KEY_DOWN) speed_forward = 0;
+		if (key == GLFW_KEY_A) speed_round_turret = 0;
+		if (key == GLFW_KEY_D) speed_round_turret = 0;
 	}
 }
 
@@ -286,29 +292,93 @@ void drawObject(GLuint vao, ShaderProgram *shaderProgram, mat4 mP, mat4 mV, mat4
 	glBindVertexArray(0);
 }
 
+void srednia_x_y_z( const float* vertices, const int vertexCount, float srednie[3])
+{
+    float maks[3];
+    float minn[3];
+
+    maks[0] = vertices[0];
+    maks[1] = vertices[1];
+    maks[2] = vertices[2];
+
+    for(int i = 0; i < vertexCount; i = i + 4 )
+    {
+        if( vertices[i] > maks[0] ) maks[0] = vertices[i];
+        if( vertices[i + 1] > maks[1] ) maks[1] = vertices[i + 1];
+        if( vertices[i + 2] > maks[2] ) maks[2] = vertices[i + 2];
+    }
+
+    minn[0] = vertices[0];
+    minn[1] = vertices[1];
+    minn[2] = vertices[2];
+
+    for(int i = 0; i < turretvertexCount; i = i + 4 )
+    {
+        if( vertices[i] < minn[0] ) minn[0] = vertices[i];
+        if( vertices[i + 1] < minn[1] ) minn[1] = vertices[i + 1];
+        if( vertices[i + 2] < minn[2] ) minn[2] = vertices[i + 2];
+    }
+    srednie[0] = (maks[0] + minn[0])/2.0f;
+    srednie[1] = (maks[1] + minn[1])/2.0f;
+    srednie[2] = (maks[2] + minn[2])/2.0f;
+}
+
 //Procedura rysuj¹ca zawartoœæ sceny
-void drawScene(GLFWwindow* window, float move_x,float move_z, float move_side) {
+void drawScene(GLFWwindow* window, float move_x,float move_z, float move_side, float move_round_turret) {
 	//************Tutaj umieszczaj kod rysuj¹cy obraz******************l
+
+    float srednie_hull[3];
+    float srednie_turret[3];
 
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT); //Wykonaj czyszczenie bufora kolorów
 
 	glm::mat4 P = glm::perspective(50 * PI / 180, 1.0f, 1.0f, 50.0f); //Wylicz macierz rzutowania
 
 	glm::mat4 V = glm::lookAt( //Wylicz macierz widoku
-		glm::vec3(0.0f, 0.0f, -30.5f),
+		glm::vec3(0.0f, 30.0f, -30.5f),
 		glm::vec3(0.0f, 0.0f, 0.0f),
 		glm::vec3(0.0f, 1.0f, 0.0f));
 
 
-	//Wylicz macierz modelu rysowanego obiektu
-	glm::mat4 M = glm::mat4(1.0f);
-	M = glm::translate(M, glm::vec3(move_z, 0, move_x));
-	M = glm::rotate(M, move_side, glm::vec3(0, 1, 0));
+	//HUll
+	srednia_x_y_z(hullvertices, hullvertexCount, srednie_hull);
+    srednia_x_y_z(turretvertices, turretvertexCount, srednie_turret);
+    srednie_turret[0] = srednie_turret[0] - 1; //dostosowanie osi obrotu
+    srednie_turret[2] = srednie_turret[2] - 1;
+
+	glm::mat4 M_Hull = glm::mat4(1.0f);
+	M_Hull = glm::translate(M_Hull, glm::vec3(move_z, 0, move_x));
+	M_Hull = glm::translate(M_Hull, glm::vec3(  srednie_hull[0], srednie_hull[1], srednie_hull[2]));
+	M_Hull = glm::rotate(M_Hull, move_side, glm::vec3(0, 1, 0));
+    M_Hull = glm::translate(M_Hull, glm::vec3(  -srednie_hull[0], -srednie_hull[1], -srednie_hull[2]));
+
+    //TURRET
+	glm::mat4 M_Turret = glm::mat4(1.0f);
+    M_Turret = glm::translate(M_Turret, glm::vec3(move_z, 0, move_x));
+    M_Turret = glm::translate(M_Turret, glm::vec3(  srednie_hull[0], srednie_hull[1], srednie_hull[2]));
+	M_Turret = glm::rotate(M_Turret, move_side, glm::vec3(0, 1, 0));
+    M_Turret = glm::translate(M_Turret, glm::vec3(  -srednie_hull[0], -srednie_hull[1], -srednie_hull[2]));
+
+    M_Turret = glm::translate(M_Turret, glm::vec3(  srednie_turret[0], srednie_turret[1], srednie_turret[2]));
+	M_Turret = glm::rotate(M_Turret, move_round_turret, glm::vec3(0, 1, 0));
+    M_Turret = glm::translate(M_Turret, glm::vec3( -srednie_turret[0], -srednie_turret[1], -srednie_turret[2]));
+
+    std::cout<<srednie_turret[0]<<" "<<srednie_turret[1]<<" "<<srednie_turret[2]<<std::endl;
+    //GUN
+	glm::mat4 M_Gun = glm::mat4(1.0f);
+	M_Gun = glm::translate(M_Gun, glm::vec3(move_z, 0, move_x));
+    M_Gun = glm::translate(M_Gun, glm::vec3(  srednie_hull[0], srednie_hull[1], srednie_hull[2]));
+	M_Gun = glm::rotate(M_Gun, move_side, glm::vec3(0, 1, 0));
+    M_Gun = glm::translate(M_Gun, glm::vec3(  -srednie_hull[0], -srednie_hull[1], -srednie_hull[2]));
+
+	M_Gun = glm::translate(M_Gun, glm::vec3(  srednie_turret[0], srednie_turret[1], srednie_turret[2]));
+	M_Gun = glm::rotate(M_Gun, move_round_turret, glm::vec3(0, 1, 0));
+    M_Gun = glm::translate(M_Gun, glm::vec3( -srednie_turret[0], -srednie_turret[1], -srednie_turret[2]));
 
 	//Narysuj obiekt
-	drawObject(vao_hull,shaderProgram,P,V,M, hullvertexCount);
-	drawObject(vao_turret,shaderProgram,P,V,M, turretvertexCount);
-	drawObject(vao_gun,shaderProgram,P,V,M, gunvertexCount);
+	drawObject(vao_hull,shaderProgram,P,V,M_Hull, hullvertexCount);
+	drawObject(vao_turret,shaderProgram,P,V,M_Turret, turretvertexCount);
+	drawObject(vao_gun,shaderProgram,P,V,M_Gun, gunvertexCount);
 
 	//Przerzuæ tylny bufor na przedni
 	glfwSwapBuffers(window);
@@ -327,7 +397,7 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
-	window = glfwCreateWindow(500, 500, "OpenGL", NULL, NULL);  //Utwórz okno 500x500 o tytule "OpenGL" i kontekst OpenGL.
+	window = glfwCreateWindow(800, 800, "Tank", NULL, NULL);  //Utwórz okno 500x500 o tytule "OpenGL" i kontekst OpenGL.
 
 	if (!window) //Je¿eli okna nie uda³o siê utworzyæ, to zamknij program
 	{
@@ -349,6 +419,7 @@ int main(void)
 	float move_x = 0; //K¹t obrotu obiektu
 	float move_z = 0;
 	float move_side = 0; //K¹t obrotu obiektu
+	float move_round_turret = 0;
 
 	glfwSetTime(0); //Wyzeruj licznik czasu
 
@@ -357,8 +428,9 @@ int main(void)
 		move_x += speed_forward*sin(move_side);
 		move_z += speed_forward*(-cos(move_side));
 		move_side += speed_side*glfwGetTime();
+		move_round_turret += speed_round_turret*glfwGetTime();
 		glfwSetTime(0);
-		drawScene(window,move_x,move_z,move_side);
+		drawScene(window, move_x, move_z, move_side, move_round_turret);
 		glfwPollEvents();
 	}
 

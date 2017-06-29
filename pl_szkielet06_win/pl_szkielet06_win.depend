@@ -598,13 +598,13 @@
 1498734367 source:c:\users\admin\downloads\pl_szkielet06_win\pl_szkielet06_win\czolg.cpp
 	"czolg.h"
 
-1461347407 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\cube.cpp
+1498748743 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\cube.cpp
 	"cube.h"
 
-1498673609 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\cube.h
+1498748743 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\cube.h
 	"model.h"
 
-1498671472 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\model.h
+1498748743 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\model.h
 	<vector>
 	<glm/glm.hpp>
 	<GLFW/glfw3.h>
@@ -1075,15 +1075,15 @@
 	<GL/glext.h>
 	<GL/glu.h>
 
-1460752318 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\constants.h
+1498748743 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\constants.h
 
-1460752318 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\lodepng.cpp
+1498748743 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\lodepng.cpp
 	"lodepng.h"
 	<stdio.h>
 	<stdlib.h>
 	<fstream>
 
-1460752318 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\lodepng.h
+1498748743 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\lodepng.h
 	<string.h>
 	<vector>
 	<string>
@@ -1091,7 +1091,7 @@
 	<iostream>
 	"lodepng.h"
 
-1498743487 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\main_file.cpp
+1498752399 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\main_file.cpp
 	<GL/glew.h>
 	<GLFW/glfw3.h>
 	<glm/glm.hpp>
@@ -1170,50 +1170,50 @@
 	"../trigonometric.hpp"
 	"../matrix.hpp"
 
-1498738193 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\allmodels.h
+1498748743 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\allmodels.h
 	"cube.h"
 	"teapot.h"
 	"czolg_hull.h"
 	"tank_turret.h"
 	"tank_gun.h"
 
-1495017347 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\teapot.h
+1498748743 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\teapot.h
 	"model.h"
 
 1498735293 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\czolg.h
 	"model.h"
 
-1492968721 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\shaderprogram.h
+1498748743 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\shaderprogram.h
 	"GL/glew.h"
 	"stdio.h"
 
-1460752318 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\model.cpp
+1498748743 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\model.cpp
 	"model.h"
 
-1492968770 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\shaderprogram.cpp
+1498748743 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\shaderprogram.cpp
 	"shaderprogram.h"
 
-1465744986 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\teapot.cpp
+1498748743 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\teapot.cpp
 	"teapot.h"
 
 1498735293 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\czolg.cpp
 	"czolg.h"
 
-1498736145 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\czolg_hull.h
+1498748743 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\czolg_hull.h
 	"model.h"
 
-1498742275 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\czolg_hull.cpp
+1498748743 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\czolg_hull.cpp
 	"czolg_hull.h"
 
-1498736829 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\tank_turret.cpp
+1498748743 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\tank_turret.cpp
 	"tank_turret.h"
 
-1498736829 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\tank_turret.h
+1498748743 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\tank_turret.h
 	"model.h"
 
-1498738143 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\tank_gun.cpp
+1498748743 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\tank_gun.cpp
 	"tank_gun.h"
 
-1498738143 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\tank_gun.h
+1498748743 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\tank_gun.h
 	"model.h"
 
