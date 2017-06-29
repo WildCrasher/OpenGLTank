@@ -1091,7 +1091,7 @@
 	<iostream>
 	"lodepng.h"
 
-1498739326 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\main_file.cpp
+1498743487 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\main_file.cpp
 	<GL/glew.h>
 	<GLFW/glfw3.h>
 	<glm/glm.hpp>
@@ -1202,7 +1202,7 @@
 1498736145 c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\czolg_hull.h
 	"model.h"
 
-1498736447 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\czolg_hull.cpp
+1498742275 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\czolg_hull.cpp
 	"czolg_hull.h"
 
 1498736829 source:c:\users\admin\desktop\opengltank - kopia\opengltank\pl_szkielet06_win\tank_turret.cpp

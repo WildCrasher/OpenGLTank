@@ -125,8 +125,8 @@ void key_callback(GLFWwindow* window, int key,
 	if (action == GLFW_PRESS) {
 		if (key == GLFW_KEY_LEFT) speed_side = -0.5;
 		if (key == GLFW_KEY_RIGHT) speed_side = 0.5;
-		if (key == GLFW_KEY_UP) speed_forward = -6;
-		if (key == GLFW_KEY_DOWN) speed_forward = 6;
+		if (key == GLFW_KEY_UP) speed_forward = -1;
+		if (key == GLFW_KEY_DOWN) speed_forward = 1;
 	}
 
 
@@ -287,7 +287,7 @@ void drawObject(GLuint vao, ShaderProgram *shaderProgram, mat4 mP, mat4 mV, mat4
 }
 
 //Procedura rysuj¹ca zawartoœæ sceny
-void drawScene(GLFWwindow* window, float move_forward, float move_side) {
+void drawScene(GLFWwindow* window, float move_x,float move_z, float move_side) {
 	//************Tutaj umieszczaj kod rysuj¹cy obraz******************l
 
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT); //Wykonaj czyszczenie bufora kolorów
@@ -302,7 +302,7 @@ void drawScene(GLFWwindow* window, float move_forward, float move_side) {
 
 	//Wylicz macierz modelu rysowanego obiektu
 	glm::mat4 M = glm::mat4(1.0f);
-	M = glm::translate(M, glm::vec3(move_forward, 0, 0));
+	M = glm::translate(M, glm::vec3(move_z, 0, move_x));
 	M = glm::rotate(M, move_side, glm::vec3(0, 1, 0));
 
 	//Narysuj obiekt
@@ -346,19 +346,20 @@ int main(void)
 
 	initOpenGLProgram(window); //Operacje inicjuj¹ce
 
-	float move_forward = 0; //K¹t obrotu obiektu
+	float move_x = 0; //K¹t obrotu obiektu
+	float move_z = 0;
 	float move_side = 0; //K¹t obrotu obiektu
 
 	glfwSetTime(0); //Wyzeruj licznik czasu
 
-	//G³ówna pêtla
-	while (!glfwWindowShouldClose(window)) //Tak d³ugo jak okno nie powinno zostaæ zamkniête
+	while (!glfwWindowShouldClose(window))
 	{
-		move_forward += speed_forward*glfwGetTime(); //Zwiêksz k¹t o prêdkoœæ k¹tow¹ razy czas jaki up³yn¹³ od poprzedniej klatki
-		move_side += speed_side*glfwGetTime(); //Zwiêksz k¹t o prêdkoœæ k¹tow¹ razy czas jaki up³yn¹³ od poprzedniej klatki
-		glfwSetTime(0); //Wyzeruj licznik czasu
-		drawScene(window,move_forward,move_side); //Wykonaj procedurê rysuj¹c¹
-		glfwPollEvents(); //Wykonaj procedury callback w zaleznoœci od zdarzeñ jakie zasz³y.
+		move_x += speed_forward*sin(move_side);
+		move_z += speed_forward*(-cos(move_side));
+		move_side += speed_side*glfwGetTime();
+		glfwSetTime(0);
+		drawScene(window,move_x,move_z,move_side);
+		glfwPollEvents();
 	}
 
 	freeOpenGLProgram();
