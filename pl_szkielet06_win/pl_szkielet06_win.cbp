@@ -47,9 +47,6 @@
 			<Add directory="glew/lib" />
 		</Linker>
 		<Unit filename="allmodels.h" />
-		<Unit filename="constants.h" />
-		<Unit filename="cube.cpp" />
-		<Unit filename="cube.h" />
 		<Unit filename="czolg_hull.cpp" />
 		<Unit filename="czolg_hull.h" />
 		<Unit filename="fshader.txt" />
@@ -64,9 +61,6 @@
 		<Unit filename="tank_gun.h" />
 		<Unit filename="tank_turret.cpp" />
 		<Unit filename="tank_turret.h" />
-		<Unit filename="teapot.cpp" />
-		<Unit filename="teapot.h" />
-		<Unit filename="torus.h" />
 		<Unit filename="vshader.txt" />
 		<Extensions>
 			<code_completion />
